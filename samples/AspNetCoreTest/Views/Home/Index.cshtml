@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = null;
+}
+
+@model AspNetCoreTest.Data.Blog
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+
+<div>
+    <a asp-controller="Home" asp-action="Sub">注册DemoHandler</a>
+    <br />
+    <a asp-controller="Home" asp-action="Privacy">取消注册DemoHandler</a>
+    
+    <br />
+    <a asp-controller="Home" asp-action="Update">更新数据</a>
+</div>
+
+<hr />
+
+@if (Model != null)
+{
+    <p>@Model.Id</p>
+    <p>@Model.Name</p>
+    <p>@Model.CreateTime</p>
+}

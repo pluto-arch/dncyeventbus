@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net5.0;netcoreapp3.1</TargetFrameworks>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Description>阿里云RocketMQ 事件总线</Description>
+		<PackageId>Dncy.EventBus.AliyunRocketMQ</PackageId>
+		<Authors>zhangyulong</Authors>
+		<Product>Dncy.EventBus.AliyunRocketMQ</Product>
+		<PackageProjectUrl>https://github.com/pluto-arch/dncyeventbus</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/pluto-arch/dncyeventbus</RepositoryUrl>
+	</PropertyGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.*" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.*" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.*" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.*" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="AliyunMQ.Http" Version="1.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Pluto.EventBus.Abstract\Pluto.EventBus.Abstract.csproj" />
+	</ItemGroup>
+
+
+</Project>

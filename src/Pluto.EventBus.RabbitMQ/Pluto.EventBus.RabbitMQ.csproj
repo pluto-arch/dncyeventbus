@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <PackageId>Dncy.EventBus.RabbitMQ</PackageId>
+    <Authors>zhangyulong</Authors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Pluto.EventBus.Abstract\Pluto.EventBus.Abstract.csproj" />
+  </ItemGroup>
+
+
+</Project>
