@@ -1,4 +1,4 @@
-# pluto_eventbus
+# dncy_eventbus
 
 ### 使用方式
 ```
