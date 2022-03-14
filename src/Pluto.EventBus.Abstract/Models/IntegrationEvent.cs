@@ -29,6 +29,6 @@ namespace Pluto.EventBus.Abstract
         /// <summary>
         /// 延迟时间
         /// </summary>
-        public int DelaySecond { get; set; }
+        public long DelaySecond { get; set; }
     }
 }
