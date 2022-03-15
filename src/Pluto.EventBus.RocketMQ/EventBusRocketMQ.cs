@@ -79,9 +79,9 @@ namespace Pluto.EventBus.AliyunRocketMQ
             var eventName = @event.GetType().Name;
             var p = _producer.Value;
             var topicMsg = new TopicMessage(_messageSerializeProvider.Serialize(@event), eventName);
-            if (@event.DelaySecond>0)
+            if (@event.StartDeliverTime > 0)
             {
-                topicMsg.StartDeliverTime = @event.DelaySecond;
+                topicMsg.StartDeliverTime = @event.StartDeliverTime;
             }
             p.PublishMessage(topicMsg);
         }

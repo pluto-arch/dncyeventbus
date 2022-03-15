@@ -11,7 +11,7 @@ namespace Pluto.EventBus.Abstract
         {
             Id = $"{Guid.NewGuid():N}";
             CreationDate = DateTime.UtcNow;
-            DelaySecond = 0;
+            StartDeliverTime = 0;
         }
 
 
@@ -19,7 +19,7 @@ namespace Pluto.EventBus.Abstract
         {
             Id = id;
             CreationDate = createDate;
-            DelaySecond = 0;
+            StartDeliverTime = 0;
         }
 
         public string Id { get; set; }
@@ -29,6 +29,6 @@ namespace Pluto.EventBus.Abstract
         /// <summary>
         /// 延迟时间
         /// </summary>
-        public long DelaySecond { get; set; }
+        public long StartDeliverTime { get; set; }
     }
 }

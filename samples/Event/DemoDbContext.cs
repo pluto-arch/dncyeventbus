@@ -10,7 +10,7 @@ namespace AspNetCoreTest.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=127.0.0.1,1433;Database=demo;User Id=sa;Password=123456;Trusted_Connection = False;");
+            optionsBuilder.UseSqlServer(@"Server=127.0.0.1,1433;Database=demo;User Id=sa;Password=970307lBX;Trusted_Connection = False;");
         }
     }
 
