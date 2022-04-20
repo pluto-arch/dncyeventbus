@@ -24,6 +24,7 @@ namespace Pluto.EventBus.AliyunRocketMQ
         private bool disposedValue;
         private readonly ILogger<EventBusRocketMQ> _logger;
         private readonly IMessageSerializeProvider _messageSerializeProvider;
+        private readonly IIntegrationEventStore _eventStore;
         private readonly AliyunRocketMqOption _mqOption;
 
         #region mq parame
@@ -40,6 +41,7 @@ namespace Pluto.EventBus.AliyunRocketMQ
             IServiceScopeFactory serviceFactory,
             AliyunRocketMqOption option,
             IMessageSerializeProvider messageSerializeProvider,
+            IIntegrationEventStore eventStore,
             ILogger<EventBusRocketMQ> logger = null)
         {
             _mQClient = mQClient;
@@ -56,7 +58,7 @@ namespace Pluto.EventBus.AliyunRocketMQ
 
             _subsManager.OnEventRemoved += SubsManager_OnEventRemoved; ;
             _messageSerializeProvider = messageSerializeProvider??throw new InvalidOperationException("缺少消息序列化工具");
-
+            _eventStore = eventStore??NullIntegrationEventStore.Instance;
         }
 
 
@@ -165,7 +167,6 @@ namespace Pluto.EventBus.AliyunRocketMQ
                             continue;
                         }
 
-                        consumer.AckMessage(messages.Select(x => x.ReceiptHandle).ToList());
                         using (var scope=_service.CreateScope())
                         {
                             var subManager = scope.ServiceProvider.GetRequiredService<IEventBusSubscriptionsManager>();
@@ -179,6 +180,7 @@ namespace Pluto.EventBus.AliyunRocketMQ
                                 }
                                 _logger.LogInformation($"消息：{message.MessageTag}, 订阅者数量：{handlersForEvent.Count()}");
                                 consumer.AckMessage(new List<string>(){ message.ReceiptHandle });
+                                await TryStoredEvent(message.MessageTag,message.Body);
                                 foreach (var subscriptionInfo in handlersForEvent)
                                 {
                                     if (subscriptionInfo.IsDynamic)
@@ -210,6 +212,18 @@ namespace Pluto.EventBus.AliyunRocketMQ
                     }
                 }
             }, tokenSource.Token);
+        }
+
+        private async Task TryStoredEvent(string messageTag, string messageBody)
+        {
+            try
+            {
+                await _eventStore.SaveAsync(messageTag,messageBody);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e,$"storage integration event has an error：{e.Message}");
+            }
         }
 
 
