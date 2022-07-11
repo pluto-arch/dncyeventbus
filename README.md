@@ -15,6 +15,9 @@ services.AddSingleton<IEventBus, EventBusRocketMQ>(sp =>
     var serializeProvider = sp.GetRequiredService<IMessageSerializeProvider>();
     return new EventBusRocketMQ(mqClient, subMgr, serviceFactory, new AliyunRocketMqOption("instranceid", "topicid", "groupid"), serializeProvider, logger);
 });
+
+// 订阅事件：
+ _eventBus.Subscribe<DemoEvent, DemoEventHandler>();
 ```
 
 
