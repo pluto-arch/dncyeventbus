@@ -179,8 +179,8 @@ namespace Pluto.EventBus.AliyunRocketMQ
                                     continue;
                                 }
                                 _logger.LogInformation($"消息：{message.MessageTag}, 订阅者数量：{handlersForEvent.Count()}");
-                                consumer.AckMessage(new List<string>(){ message.ReceiptHandle });
                                 await TryStoredEvent(message.MessageTag,message.Body);
+                                consumer.AckMessage(new List<string>() { message.ReceiptHandle });
                                 foreach (var subscriptionInfo in handlersForEvent)
                                 {
                                     if (subscriptionInfo.IsDynamic)
